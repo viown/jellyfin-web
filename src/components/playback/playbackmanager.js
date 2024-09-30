@@ -2608,12 +2608,14 @@ class PlaybackManager {
 
                 const trackOptions = {};
 
-                autoSetNextTracks(prevSource, mediaStreams, trackOptions, user.Configuration.RememberAudioSelections, user.Configuration.RememberSubtitleSelections);
-                if (trackOptions.DefaultAudioStreamIndex != null) {
-                    options.audioStreamIndex = trackOptions.DefaultAudioStreamIndex;
-                }
-                if (trackOptions.DefaultSubtitleStreamIndex != null) {
-                    options.subtitleStreamIndex = trackOptions.DefaultSubtitleStreamIndex;
+                if (!playOptions.isPreviousTrack) {
+                    autoSetNextTracks(prevSource, mediaStreams, trackOptions, user.Configuration.RememberAudioSelections, user.Configuration.RememberSubtitleSelections);
+                    if (trackOptions.DefaultAudioStreamIndex != null) {
+                        options.audioStreamIndex = trackOptions.DefaultAudioStreamIndex;
+                    }
+                    if (trackOptions.DefaultSubtitleStreamIndex != null) {
+                        options.subtitleStreamIndex = trackOptions.DefaultSubtitleStreamIndex;
+                    }
                 }
 
                 return getPlaybackMediaSource(player, apiClient, deviceProfile, item, mediaSourceId, options).then(async (mediaSource) => {
@@ -3075,6 +3077,7 @@ class PlaybackManager {
                 if (newItem) {
                     const newItemPlayOptions = newItem.playOptions || getDefaultPlayOptions();
                     newItemPlayOptions.startPositionTicks = 0;
+                    newItemPlayOptions.isPreviousTrack = true;
 
                     playInternal(newItem, newItemPlayOptions, function () {
                         setPlaylistState(newItem.PlaylistItemId, newIndex);
