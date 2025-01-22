@@ -136,11 +136,10 @@ export const LEGACY_ADMIN_ROUTES: LegacyRoute[] = [
             view: 'dashboard/scheduledtasks/scheduledtask.html'
         }
     }, {
-        path: 'tasks',
+        path: 'keys',
         pageProps: {
-            appType: AppType.Dashboard,
-            controller: 'dashboard/scheduledtasks/scheduledtasks',
-            view: 'dashboard/scheduledtasks/scheduledtasks.html'
+            controller: 'dashboard/apikeys',
+            view: 'dashboard/apikeys.html'
         }
     }, {
         path: 'playback/streaming',
